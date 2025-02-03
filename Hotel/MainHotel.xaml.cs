@@ -29,7 +29,7 @@ namespace Hotel
         public List<Room> Rooms { get; set; }
         public List<Guest> Guests { get; set; }
         
-        public User SelectedUser { get; set; }
+        
 
         public MainHotel()
         {
@@ -60,18 +60,5 @@ namespace Hotel
             user.Show();
             Close();
         }
-
-        //private void Button_DEUser(object sender, RoutedEventArgs e)
-        //{
-        //    if (SelectedUser != null)
-        //    {
-        //            if (MessageBox.Show("Удалить выбранного юзера?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-        //            {
-        //                DataBase.GetInstance().Users.Remove(SelectedUser);
-        //                DataBase.GetInstance().SaveChanges();
-        //            LoadUser();
-        //            }
-        //    }
-        //}
     }
 }

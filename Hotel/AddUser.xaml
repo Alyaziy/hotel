@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
         <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" >
             <StackPanel>
-                
+
                 <TextBlock Text="Логин"/>
                 <TextBox Text="{Binding User.Login}"/>
                 <TextBlock Text="Пароль"/>
@@ -22,11 +22,8 @@
                 <ComboBox ItemsSource="{Binding Roles}" DisplayMemberPath="Name" SelectedItem="{Binding User.Role}"/>
             </StackPanel>
         </Border>
-       
-            
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
-                <Button Content="Сохранить" Click="SaveClose" />
-            </StackPanel>
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">
+            <Button Content="Сохранить" Click="SaveClose" />
+        </StackPanel>
     </Grid>
 </Window>
