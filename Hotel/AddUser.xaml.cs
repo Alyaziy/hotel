@@ -30,36 +30,23 @@ namespace Hotel
         {
             InitializeComponent();
             Roles = DataBase.GetInstance().Roles.ToList();
-            if (selectedUser.Id == null ||selectedUser.Id == 0)
-            {
-                SelectedUser = selectedUser;
-            }
-            else
-            {
-                SelectedUser = selectedUser.Clone();
-                Editable = true;
-            }
+            User = selectedUser;
             DataContext = this;
         }
-
-        public User SelectedUser { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         void Signal(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
         private void SaveClose(object sender, RoutedEventArgs e)
         {
-            if (!Editable)
+            if (User.Id == 0)
                 DataBase.GetInstance().Users.Add(User);
             else
-            {
-                var original = DataBase.GetInstance().Users.
-                    Find(SelectedUser.Id);
-                DataBase.GetInstance().Users.Entry(original)
-                    .CurrentValues.SetValues(SelectedUser);
-            }
+                DataBase.GetInstance().Users.Update(User);
+
             DataBase.GetInstance().SaveChanges();
             Close();
+
         }
     }
 }

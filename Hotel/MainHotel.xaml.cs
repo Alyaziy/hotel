@@ -37,8 +37,6 @@ namespace Hotel
             
             LoadRoom();
             DataContext = this;
-           
-
         }
 
         public void LoadRoom()
@@ -48,27 +46,32 @@ namespace Hotel
                 Include(s => s.Guest).ToList(); 
             Books = result;
         }
-
-        private void Button_NUser(object sender, RoutedEventArgs e)
-        {
-            new AddUser(new User()).ShowDialog();
-            LoadRoom();
-
-        }
-
-        private void Button_EUser(object sender, RoutedEventArgs e)
-        {
-            if (SelectedUser != null)
-            {
-                new AddUser(SelectedUser).ShowDialog();
-                LoadRoom();
-            }
-        }
+  
 
         private void Button_Schedule(object sender, RoutedEventArgs e)
         {
             Schedule schedule = new Schedule();
             schedule.ShowDialog();
         }
+
+        private void Button_UList(object sender, RoutedEventArgs e)
+        {
+            UList user = new UList();
+            user.Show();
+            Close();
+        }
+
+        //private void Button_DEUser(object sender, RoutedEventArgs e)
+        //{
+        //    if (SelectedUser != null)
+        //    {
+        //            if (MessageBox.Show("Удалить выбранного юзера?", "Внимание!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+        //            {
+        //                DataBase.GetInstance().Users.Remove(SelectedUser);
+        //                DataBase.GetInstance().SaveChanges();
+        //            LoadUser();
+        //            }
+        //    }
+        //}
     }
 }

@@ -1,0 +1,39 @@
+﻿<Window x:Class="Hotel.UList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Hotel"
+        mc:Ignorable="d"
+        Title="UList" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ListView ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" Grid.ColumnSpan="2" Grid.RowSpan="3" HorizontalContentAlignment="Stretch">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Логин" DisplayMemberBinding="{Binding Login}" Width="150"/>
+                    <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Password}" Width="150"/>
+                    <GridViewColumn Header="Роль" DisplayMemberBinding="{Binding Role.Name}" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" >
+            <Button Content="Books" Height="30" Width="100" Margin="0 0 0 10" Click="Button_BookList"/>
+            <Button Content="New User" Height="30" Width="100" Margin="0 0 0 10" Click="Button_NUser"/>
+            <Button Content="Edit User" Height="30" Width="100" Margin="0 0 0 10" Click="Button_EUser" />
+            <Button Content="Delete User" Height="30" Width="100" Margin="0 0 0 10" Click="Button_DEUser"/>
+            <Button Content="Schedule" Height="30" Width="100" Click="Button_Schedule"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

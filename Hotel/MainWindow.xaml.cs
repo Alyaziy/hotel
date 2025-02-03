@@ -67,6 +67,8 @@ namespace Hotel
             {
                 UserStorage.User = user;
 
+                MessageBox.Show("Вы успешно авторизовались");
+
                 MainHotel mainHotel = new MainHotel();
                 mainHotel.Show();
                 Close();
