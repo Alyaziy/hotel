@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hotel"
+        xmlns:cnvrtr="clr-namespace:Hotel.Converter"
         mc:Ignorable="d"
         Title="UList" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <cnvrtr:IsLockedToStringConverter x:Key="isLockedConverter"/>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -24,6 +29,7 @@
                     <GridViewColumn Header="Логин" DisplayMemberBinding="{Binding Login}" Width="150"/>
                     <GridViewColumn Header="Пароль" DisplayMemberBinding="{Binding Password}" Width="150"/>
                     <GridViewColumn Header="Роль" DisplayMemberBinding="{Binding Role.Name}" Width="150"/>
+                    <GridViewColumn Header="Бан" DisplayMemberBinding="{Binding IsLocked, Converter={StaticResource isLockedConverter}}" Width="150"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hotel"
+        xmlns:converter="clr-namespace:Hotel.Converter"
         mc:Ignorable="d"
         Title="AddUser" Height="450" Width="800">
+    <Window.Resources>
+        <converter:IsLockedToStringConverter x:Key="LockedConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -20,6 +24,11 @@
                 <TextBox Text="{Binding User.Password}"/>
                 <TextBlock Text="Роль"/>
                 <ComboBox ItemsSource="{Binding Roles}" DisplayMemberPath="Name" SelectedItem="{Binding User.Role}"/>
+                <TextBlock Text="Блокировка"/>
+                <ComboBox SelectedItem="{Binding SelectedBun}">
+                    <ComboBoxItem Content="Заблокирован" Tag="true"/>
+                    <ComboBoxItem Content="Незаблокирован" Tag="false"/>
+                </ComboBox>
             </StackPanel>
         </Border>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal">

@@ -25,6 +25,7 @@ namespace Hotel
         public bool Editable { get; set; }
         public List<Role> Roles { get; set; }
         public User User { get; set; } = new User();
+        public ComboBoxItem SelectedBun { get; set; }
 
         public AddUser(User selectedUser)
         {
@@ -39,6 +40,11 @@ namespace Hotel
 
         private void SaveClose(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(SelectedBun.Tag.ToString()))
+                return;
+
+            User.IsLocked = SelectedBun.Tag.ToString() == "true" ? true : false;
+
             if (User.Id == 0)
                 DataBase.GetInstance().Users.Add(User);
             else

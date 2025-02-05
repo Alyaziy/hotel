@@ -60,8 +60,7 @@ namespace Hotel
         {
             if (SelectedUser != null)
             {
-                new AddUser(SelectedUser).ShowDialog();
-                
+                new AddUser(SelectedUser).ShowDialog();                
                 LoadUser();
             }
         }

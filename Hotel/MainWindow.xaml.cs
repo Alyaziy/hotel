@@ -23,6 +23,8 @@ namespace Hotel
     {
         private string errorMessage;
 
+        Dictionary<string, int> BlockList = new Dictionary<string, int>();
+
         public event PropertyChangedEventHandler? PropertyChanged;
         void Signal([CallerMemberName] string prop = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
@@ -44,14 +46,16 @@ namespace Hotel
             DataContext = this;
         }
 
+        int count = 0;
         private void Button_Login(object sender, RoutedEventArgs e)
         {
+            ErrorMessage = string.Empty;
+
             if (!CheckAuth(Login, passwordBox.Password))
             {
-                ErrorMessage = "Неверный логин или пароль";
-
-            }
-            
+                MessageBox.Show( "Неверный логин или пароль");
+               
+            }            
         }
 
         private bool CheckAuth(string login,  string password)
@@ -60,8 +64,29 @@ namespace Hotel
 
             if (user == null)
             {
-                ErrorMessage = "Ошибка авторизации или пользователь не найден";
+                ErrorMessage = "Ошибка авторизации или юзера нету";
+                if (BlockList.TryGetValue(Login!, out int count))
+                {
+                    if (count >= 3)
+                    {
+                        DataBase.GetInstance().Users
+                                                .Where(s => s.Login == Login)
+                                                .ExecuteUpdate(s => s.SetProperty(
+                                                    p => p.IsLocked, true
+                                                    ));
+                        MessageBox.Show("Вы заблокированы. Обратитесь к администратору");
+                    }
+
+                    BlockList[Login!] = ++count;
+                }
+                else
+                    BlockList.Add(Login!, 1);
                 return false;
+            }
+            else if  (user.IsLocked)
+            {
+                ErrorMessage = "У вас спид.. ой, бан! Обратитесь к админу.";
+                return true;
             }
             else
             {
