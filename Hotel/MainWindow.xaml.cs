@@ -1,6 +1,7 @@
 ﻿using Hotel.DB;
 using Hotel.Storage;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -44,6 +45,14 @@ namespace Hotel
         {
             InitializeComponent();
             DataContext = this;
+
+            var span = TimeSpan.FromDays(30);
+
+            DataBase.GetInstance().Users
+                .Where(s => s.LastAuth != null && (s.LastAuth - DateTime.Now) >= span)
+                .ExecuteUpdate(s => s.SetProperty(
+                    p => p.IsLocked, true
+                    ));
         }
 
         int count = 0;
@@ -91,6 +100,12 @@ namespace Hotel
             else
             {
                 UserStorage.User = user;
+
+                DataBase.GetInstance().Users
+                .Where(s => s.Id == user.Id)
+                .ExecuteUpdate(s => s.SetProperty(
+                    p => p.LastAuth, DateTime.Now
+                    ));
 
                 MessageBox.Show("Вы успешно авторизовались");
 

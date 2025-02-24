@@ -163,6 +163,7 @@ public partial class User21Context : DbContext
         {
             entity.ToTable("User");
 
+            entity.Property(e => e.LastAuth).HasColumnType("datetime");
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(50);
 

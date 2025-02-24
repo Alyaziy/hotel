@@ -15,6 +15,8 @@ public partial class User
 
     public bool IsLocked { get; set; }
 
+    public DateTime? LastAuth { get; set; }
+
     public virtual ICollection<Guest> Guests { get; set; } = new List<Guest>();
 
     public virtual Role? Role { get; set; }
