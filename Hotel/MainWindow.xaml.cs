@@ -46,10 +46,10 @@ namespace Hotel
             InitializeComponent();
             DataContext = this;
 
-            var span = TimeSpan.FromDays(30);
+            var span = DateTime.Now.AddMonths(-1);
 
-            DataBase.GetInstance().Users
-                .Where(s => s.LastAuth != null && (s.LastAuth - DateTime.Now) >= span)
+            var shit = DataBase.GetInstance().Users
+                .Where(s => s.LastAuth != null && s.LastAuth <= span)
                 .ExecuteUpdate(s => s.SetProperty(
                     p => p.IsLocked, true
                     ));
@@ -101,17 +101,41 @@ namespace Hotel
             {
                 UserStorage.User = user;
 
-                DataBase.GetInstance().Users
-                .Where(s => s.Id == user.Id)
-                .ExecuteUpdate(s => s.SetProperty(
-                    p => p.LastAuth, DateTime.Now
-                    ));
+                //DataBase.GetInstance().Users
+                //.Where(s => s.Id == user.Id)
+                //.ExecuteUpdate(s => s.SetProperty(
+                //    p => p.LastAuth, DateTime.Now
+                //    ));
 
                 MessageBox.Show("Вы успешно авторизовались");
+                if(user.LastAuth == null)
+                {
+                    ChangePass changePass = new ChangePass(user);
+                    changePass.Show();
+                    Close();
+                    user.LastAuth = DateTime.Now;
+                    DataBase.GetInstance().Users.Update(user);
+                    DataBase.GetInstance().SaveChanges();
+                    return true;
+                }
 
-                MainHotel mainHotel = new MainHotel();
-                mainHotel.Show();
-                Close();
+                user.LastAuth = DateTime.Now;
+                DataBase.GetInstance().Users.Update(user);
+                DataBase.GetInstance().SaveChanges();
+
+                if (user.RoleId == 3)
+                {
+                    GuestPage guestPage = new GuestPage();
+                    guestPage.Show();
+                    Close();
+                }
+                else
+                {
+                    MainHotel mainHotel = new MainHotel();
+                    mainHotel.Show();
+                    Close();
+                }
+                
                 return true;
             }
         }

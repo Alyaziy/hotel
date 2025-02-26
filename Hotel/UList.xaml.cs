@@ -78,10 +78,12 @@ namespace Hotel
             }
         }
 
-        private void Button_Schedule(object sender, RoutedEventArgs e)
+
+        private void Button_Exit(object sender, RoutedEventArgs e)
         {
-            Schedule schedule = new Schedule();
-            schedule.ShowDialog();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Close();
         }
     }
 }

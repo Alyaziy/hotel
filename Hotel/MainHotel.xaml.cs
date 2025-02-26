@@ -48,16 +48,19 @@ namespace Hotel
         }
   
 
-        private void Button_Schedule(object sender, RoutedEventArgs e)
-        {
-            Schedule schedule = new Schedule();
-            schedule.ShowDialog();
-        }
+       
 
         private void Button_UList(object sender, RoutedEventArgs e)
         {
             UList user = new UList();
             user.Show();
+            Close();
+        }
+
+        private void Button_Exit(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
             Close();
         }
     }

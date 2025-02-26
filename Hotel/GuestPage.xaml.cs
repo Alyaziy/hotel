@@ -15,14 +15,13 @@ using System.Windows.Shapes;
 namespace Hotel
 {
     /// <summary>
-    /// Логика взаимодействия для Schedule.xaml
+    /// Логика взаимодействия для GuestPage.xaml
     /// </summary>
-    public partial class Schedule : Window
+    public partial class GuestPage : Window
     {
-        public Schedule()
+        public GuestPage()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }
